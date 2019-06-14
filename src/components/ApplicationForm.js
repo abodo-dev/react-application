@@ -923,9 +923,12 @@ var boolOptions = [
   "Yes",
   "No",
 ];
+let myKey = 0;
+
 function DropDownSelect(property) {
+  myKey++;
   return (
-    <option key={property} value={property}>{property}</option>
+    <option key={myKey} value={property}>{property}</option>
   );
 }
 

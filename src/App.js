@@ -19,7 +19,6 @@ class App extends Component {
         <h1 className="App-title">Welcome to ACME Property Management</h1>
       </header>
       <h1>Online Rental Application</h1>
-      <button onClick={this.simpleAction}>Test redux action</button>
       <div className="container" style={{marginBottom: "100px", marginTop: "100px"}}>
         <MainDisplay submittedSuccess={this.props.simpleReducer.submittedSuccess}/>
       </div>

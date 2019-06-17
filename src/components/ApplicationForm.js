@@ -923,6 +923,13 @@ var boolOptions = [
   "Yes",
   "No",
 ];
+
+var occupantRelations = [
+  "Child",
+  "Dependent",
+  "Other"
+];
+
 let myKey = 0;
 
 function DropDownSelect(property) {
@@ -933,7 +940,11 @@ function DropDownSelect(property) {
 }
 
 let ApplicationForm = props => {
-  const { handleSubmit } = props
+  const { handleSubmit } = props;
+  var coApplicantClass = "row d-none";
+  if (props.showCoApplicants){
+    coApplicantClass = "row ";
+  }
   return (
     <form onSubmit={handleSubmit}>
       <p className="App-intro">
@@ -1027,6 +1038,42 @@ let ApplicationForm = props => {
           <div className="col-md-4">
             <label htmlFor="email">Email:</label><br/>
             <Field name="email" component="input" type="text" />
+          </div>
+        </div>
+        <h2 className="section-header">Additional Occupant under 18 years of age</h2>
+        <div className="row">
+          Do you have co-applicants that will be living with you?
+        </div>
+        <div className="row">
+          <div className="col-md-3">
+            <label><Field name="coapplicant" component="input" type="radio" value="yes"/> Yes</label>
+          </div>
+          <div className="col-md-3">
+              <label><Field name="coapplicant" component="input" type="radio" value="no"/> No</label>
+          </div>
+        </div>
+        <div className={coApplicantClass} >
+          <div className="col-md-3">
+            <label htmlFor="co-occupant-first-name">First Name:</label><br/>
+            <Field name="co-occupant-first-name" component="input" type="text" />
+          </div>
+          <div className="col-md-3">
+            <label htmlFor="co-occupant-last-name">Last Name:</label><br/>
+            <Field name="co-occupant-last-name" component="input" type="text" />
+          </div>
+          <div className="col-md-3">
+            <label htmlFor="co-occupant-dob">Date of Birth:</label><br/>
+            <Field name="co-occupant-dob" component="input" type="date" />
+          </div>
+          <div className="col-md-3">
+            <label htmlFor="co-occupant-relation">Relation to Applicant:</label><br/>
+            <Field
+              name="co-occupant-relation"
+              component="select"
+              className="form-control"
+            >
+              {occupantRelations.map(DropDownSelect)}
+            </Field>
           </div>
         </div>
         <h2 className="section-header">Housing History</h2>

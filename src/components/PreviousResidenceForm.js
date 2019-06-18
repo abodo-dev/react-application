@@ -28,7 +28,7 @@ let PreviousResidenceForm = props => {
         <Field name="currentZip" component="input" type="text" />
       </div>
     </div>
-    <div className="row">
+    <div className="row" style={{marginTop:"35px"}}>
       <div className="col-md-3">
         <label htmlFor="currentLandlord">Landlord:</label><br/>
         <Field name="currentLandlord" component="input" type="text" />

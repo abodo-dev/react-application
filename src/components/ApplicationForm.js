@@ -917,6 +917,10 @@ var properties = [
   "939 Jenifer St #4",
 ];
 
+var occupantRelations = [
+  "Other"
+];
+
 
 var boolOptions = [
   "Please Select",
@@ -933,7 +937,11 @@ function DropDownSelect(property) {
 }
 
 let ApplicationForm = props => {
-  const { handleSubmit } = props
+  const { handleSubmit } = props;
+  var coApplicantClass = "row d-none";
+  if (props.showCoApplicants){
+    coApplicantClass = "row ";
+  }
   return (
     <form onSubmit={handleSubmit}>
       <p className="App-intro">
@@ -942,7 +950,7 @@ let ApplicationForm = props => {
       <div>
         <div className="row">
           <div className="col-md-4">
-            <label htmlFor="consultantSelect">Leasing Agent you worked with:</label><br/>
+            <label htmlFor="consultantSelect">Leasing Agent you worked with</label><br/>
             <Field
               name="consultantSelect"
               component="select"
@@ -953,7 +961,7 @@ let ApplicationForm = props => {
 
           </div>
           <div className="col-md-4">
-            <label htmlFor="propertySelect">Property:</label><br/>
+            <label htmlFor="propertySelect">Property</label><br/>
             <Field
               name="propertySelect"
               component="select"
@@ -963,19 +971,19 @@ let ApplicationForm = props => {
             </Field>
           </div>
           <div className="col-md-4">
-            <label htmlFor="moveIn">Expected Move In:</label><br/>
+            <label htmlFor="moveIn">Expected Move In</label><br/>
             <Field name="moveIn" component="input" type="date" />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-4">
-            <label htmlFor="rent">Rent $:</label><br/>
-            <Field name="rent" component="input" type="number" />
+            <label htmlFor="rent">Rent</label><br/>
+            <Field name="rent" component="input" type="number" placeholder="1,000"/>
           </div>
           <div className="col-md-4">
-            <label htmlFor="rent">Deposit $:</label><br/>
-            <Field name="deposit" component="input" type="number" />
+            <label htmlFor="rent">Deposit</label><br/>
+            <Field name="deposit" component="input" type="number"  placeholder="1,000"/>
           </div>
         </div>
 
@@ -995,38 +1003,69 @@ let ApplicationForm = props => {
         <h2 className="section-header">Applicant Info</h2>
         <div className="row">
           <div className="col-md-4">
-            <label htmlFor="firstName">First Name:</label><br/>
+            <label htmlFor="firstName">First Name</label><br/>
             <Field name="firstname" component="input" type="text" />
 
           </div>
           <div className="col-md-4">
-            <label htmlFor="lastName">Last Name:</label><br/>
+            <label htmlFor="lastName">Last Name</label><br/>
             <Field name="lastName" component="input" type="text" />
           </div>
           <div className="col-md-4">
-            <label htmlFor="birthDate">Date of Birth:</label><br/>
+            <label htmlFor="birthDate">Date of Birth</label><br/>
             <Field name="birthDate" component="input" type="date" />
           </div>
         </div>
         <div className="row">
           <div className="col-md-4">
-            <label htmlFor="social">Social Security #:</label><br/>
+            <label htmlFor="social">Social Security #</label><br/>
             <Field name="social" component="input" type="text" />
 
           </div>
           <div className="col-md-4">
-            <label htmlFor="driverLicense">Drivers License:</label><br/>
+            <label htmlFor="driverLicense">Drivers License</label><br/>
             <Field name="driverLicense" component="input" type="text" />
           </div>
           <div className="col-md-4">
-            <label htmlFor="cellNumber">Cell Number:</label><br/>
+            <label htmlFor="cellNumber">Cell Number</label><br/>
             <Field name="cellNumber" component="input" type="phone" />
           </div>
         </div>
         <div className="row">
           <div className="col-md-4">
-            <label htmlFor="email">Email:</label><br/>
+            <label htmlFor="email">Email</label><br/>
             <Field name="email" component="input" type="text" />
+          </div>
+        </div>
+        <h2 className="section-header">Co Applicants</h2>
+        <div className="row">
+          <div className="col-md-12" style={{textAlign:"left"}}>
+            Do you have any children under the ago of 18 years old that will be living with you?
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-3">
+            <label className="btn btn-primary"  style={{marginTop:"25px"}}>
+              <Field name="coapplicant" component="input" type="radio" value="yes" style={{display: "none"}}/> Add Co-Applicant
+            </label>
+          </div>
+        </div>
+        <div className={coApplicantClass} >
+          <div className="col-md-3">
+            <label htmlFor="co-occupant-first-name">First Name</label><br/>
+            <Field name="co-occupant-first-name" component="input" type="text" />
+          </div>
+          <div className="col-md-3">
+            <label htmlFor="co-occupant-last-name">Last Name</label><br/>
+            <Field name="co-occupant-last-name" component="input" type="text" />
+          </div>
+          <div className="col-md-3">
+            <label htmlFor="co-occupant-dob">Date of Birth</label><br/>
+            <Field name="co-occupant-dob" component="input" type="text" />
+          </div>
+          <div className="col-md-3">
+            <label htmlFor="co-occupant-relation">Relation to Applicant</label><br/>
+            <Field name="co-occupant-relation" component="input" type="text" />
           </div>
         </div>
         <h2 className="section-header">Housing History</h2>
@@ -1040,41 +1079,44 @@ let ApplicationForm = props => {
         <p>Any false statements or omissions are grounds for immediate application rejection, or future termination of any lease signed pursuant to this application.</p>
         <div className="row">
           <div className="col-md-12">
-            <label htmlFor="evictionSelect">Has an eviction action ever been filed against you or someone you were living with at the time? </label><br/>
-            <Field
-              name="evictionSelect"
-              component="select"
-              className="form-control"
-            >
-              {boolOptions.map(DropDownSelect)}
-            </Field>
+            Has an eviction action ever been filed against you or someone you were living with at the time?
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-1">
+            <label><Field name="coapplicant" component="input" type="radio" value="yes"/> Yes</label>
+          </div>
+          <div className="col-md-1">
+            <label><Field name="coapplicant" component="input" type="radio" value="no"/> No</label>
           </div>
         </div>
         <div className="row">
           <div className="col-md-12">
-          <label htmlFor="convictionSelect">Have you been found guilty of an offense involving violence to persons or property</label><br/>
-          <Field
-            name="convictionSelect"
-            component="select"
-            className="form-control"
-          >
-            {boolOptions.map(DropDownSelect)}
-          </Field>
+            Have you been found guilty of an offense involving violence to persons or property
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-1">
+            <label><Field name="coapplicant" component="input" type="radio" value="yes"/> Yes</label>
+          </div>
+          <div className="col-md-1">
+            <label><Field name="coapplicant" component="input" type="radio" value="no"/> No</label>
           </div>
         </div>
         <div className="row">
           <div className="col-md-12">
-          <label htmlFor="oweLandlordSelect">Do you owe money to your current landlord or any former landlord</label><br/>
-          <Field
-            name="oweLandlordSelect"
-            component="select"
-            className="form-control"
-          >
-            {boolOptions.map(DropDownSelect)}
-          </Field>
+            Do you owe money to your current landlord or any former landlord
           </div>
         </div>
-        <h2 className="section-header">Application Comments (optional - 255 Character Max):</h2>
+        <div className="row">
+          <div className="col-md-1">
+            <label><Field name="coapplicant" component="input" type="radio" value="yes"/> Yes</label>
+          </div>
+          <div className="col-md-1">
+            <label><Field name="coapplicant" component="input" type="radio" value="no"/> No</label>
+          </div>
+        </div>
+        <h2 className="section-header">Application Comments (optional - 255 Character Max)</h2>
         <div className="row">
           <div className="col-md-12">
           <Field name="additionalComment" component="textarea" />

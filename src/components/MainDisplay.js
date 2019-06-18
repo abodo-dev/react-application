@@ -16,7 +16,7 @@ class MainDisplay extends Component {
     }
     return (
       <div>
-        <ApplicationForm />
+        <ApplicationForm showCoApplicants={this.props.showCoApplicants}/>
         <div className="row">
           <div className="col-md-12">
             <button className="btn btn-primary" onClick={this.simpleAction}>Submit Application</button>

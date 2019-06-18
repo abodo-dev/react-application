@@ -933,7 +933,11 @@ function DropDownSelect(property) {
 }
 
 let ApplicationForm = props => {
-  const { handleSubmit } = props
+  const { handleSubmit } = props;
+  var coApplicantClass = "row d-none";
+  if (props.showCoApplicants){
+    coApplicantClass = "row ";
+  }
   return (
     <form onSubmit={handleSubmit}>
       <p className="App-intro">
@@ -1103,3 +1107,36 @@ ApplicationForm = reduxForm({
 })(ApplicationForm)
 
 export default ApplicationForm
+
+
+// <h2 className="section-header">Co Applicants</h2>
+// <div className="row">
+//   <div className="col-md-12" style={{textAlign:"left"}}>
+//     Do you have any children under the ago of 18 years old that will be living with you?
+//   </div>
+// </div>
+// <div className="row">
+//   <div className="col-md-3">
+//     <label className="btn btn-primary"  style={{marginTop:"25px"}}>
+//       <Field name="coapplicant" component="input" type="radio" value="yes" style={{display: "none"}}/> Add Co-Applicant
+//     </label>
+//   </div>
+// </div>
+// <div className={coApplicantClass} >
+//   <div className="col-md-3">
+//     <label htmlFor="co-occupant-first-name">First Name</label><br/>
+//     <Field name="co-occupant-first-name" component="input" type="text" />
+//   </div>
+//   <div className="col-md-3">
+//     <label htmlFor="co-occupant-last-name">Last Name</label><br/>
+//     <Field name="co-occupant-last-name" component="input" type="text" />
+//   </div>
+//   <div className="col-md-3">
+//     <label htmlFor="co-occupant-dob">Date of Birth</label><br/>
+//     <Field name="co-occupant-dob" component="input" type="text" />
+//   </div>
+//   <div className="col-md-3">
+//     <label htmlFor="co-occupant-relation">Relation to Applicant</label><br/>
+//     <Field name="co-occupant-relation" component="input" type="text" />
+//   </div>
+// </div>

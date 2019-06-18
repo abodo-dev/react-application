@@ -12,6 +12,10 @@ class App extends Component {
   this.props.simpleAction();
  }
  render() {
+   var showCoApplicants = false;
+   if (this.props.form.contact && this.props.form.contact.values && this.props.form.contact.values.coapplicant == "yes"){
+     showCoApplicants = true;
+   }
   return (
     <div className="App" style={{}}>
       <header className="App-header">
@@ -20,7 +24,10 @@ class App extends Component {
       </header>
       <h1>Online Rental Application</h1>
       <div className="container" style={{marginBottom: "100px", marginTop: "100px"}}>
-        <MainDisplay submittedSuccess={this.props.simpleReducer.submittedSuccess}/>
+        <MainDisplay
+          submittedSuccess={this.props.simpleReducer.submittedSuccess}
+          showCoApplicants={showCoApplicants}
+          />
       </div>
       <pre style={{display: "none"}}>
        {
